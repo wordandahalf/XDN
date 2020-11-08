@@ -20,10 +20,10 @@
 //////////////////////////////////////////////////////////////////////////////////
 module Output
 (
-	input				i_SYS_CLOCK,		// The raw system clock input from the on-board crystal 
+	input			i_SYS_CLOCK,		// The raw system clock input from the on-board crystal 
 	input [31:0]	i_BUS,				// The 32-bit bus of the CPU
-	input				i_READ_BUS,			//	Indicates to the module to read bits 0-23 of the bus into r_VALUE.
-	input				i_CLEAR_n,			// Active low clear signal, sets r_NUMBER to 0.
+	input			i_READ_BUS,			//	Indicates to the module to read bits 0-23 of the bus into r_VALUE.
+	input			i_CLEAR_n,			// Active low clear signal, sets r_NUMBER to 0.
 	
 	output			o_SEG_A,
 	output			o_SEG_B,
@@ -43,10 +43,10 @@ module Output
 );
 
 	// Output wire for clock divider.
-	wire				w_CLOCK;
+	wire			w_CLOCK;
 	
 	// The 24-bit value to display on the 6 seven-segment displays.
-	reg	[23:0]	r_VALUE				= 24'b0;
+	reg	[23:0]	    r_VALUE				= 24'b0;
 
 	// A bitfield that keeps track of the seven-segment currently being driven.
 	reg	[5:0]		r_DIGIT_SELECT		= 6'b1;
@@ -55,8 +55,10 @@ module Output
 	// A bitfield storing the values of each individual segment of the currently driven seven-segnment display.
 	reg	[6:0]		r_SEGMENT_VALUES	= 7'b0;
 
+	parameter		DIVISOR				= 32'hFFFF;
+
 	// Clock divider, divides the FPGA's 50MHz signal by 0x7FFF.
-	Divider #(32'h7FFF) clock_divider
+	Divider #(DIVISOR) clock_divider
 	(
 		i_SYS_CLOCK,
 		w_CLOCK
