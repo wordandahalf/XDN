@@ -1,131 +1,141 @@
 `timescale 1ns / 1ps
 module XDN
 (
-    input			i_SYS_CLOCK,
-    
-    output		    i_LED_0,
-    
-    input			i_BTN_0,
-    input			i_BTN_1,
-    input			i_BTN_2,
-    input			i_BTN_3,
-    input           i_BTN_4,
-    
-    output		    o_SEG_A,
-    output		    o_SEG_B,
-    output		    o_SEG_C,
-    output		    o_SEG_D,
-    output		    o_SEG_E,
-    output		    o_SEG_F,
-    output		    o_SEG_G,
-    output		    o_SEG_DP,
-    
-    output		    o_SEL_0,
-    output		    o_SEL_1,
-    output		    o_SEL_2,
-    output		    o_SEL_3,
-    output		    o_SEL_4,
-    output		    o_SEL_5
+    input   i_SYS_CLOCK,
+
+    output  i_LED_0,
+
+    input   i_BTN_0,
+    input   i_BTN_1,
+    input   i_BTN_2,
+    input   i_BTN_3,
+    input   i_BTN_4,
+
+    output  o_SEG_A,
+    output  o_SEG_B,
+    output  o_SEG_C,
+    output  o_SEG_D,
+    output  o_SEG_E,
+    output  o_SEG_F,
+    output  o_SEG_G,
+    output  o_SEG_DP,
+
+    output  o_SEL_0,
+    output  o_SEL_1,
+    output  o_SEL_2,
+    output  o_SEL_3,
+    output  o_SEL_4,
+    output  o_SEL_5
 );
 
-parameter           DATA_WIDTH = 8;
+    parameter   DATA_WIDTH = 8;
 
-// CPU-wide connections.
-wire	[DATA_WIDTH - 1:0]	    BUS;
-wire				i_CLEAR_n;
-wire                i_CLEAR;
+    // CPU-wide connections.
+    wire    [DATA_WIDTH - 1:0]      BUS;
+    wire                            i_CLEAR_n;
+    wire                            i_CLEAR;
 
-// Clock module
-wire				i_HALT;
-wire				i_STEP_TOGGLE;
-wire				i_STEP_CLOCK;
+    // Clock module
+    wire    CLOCK_HALT;
+    wire    CLOCK_STEP_TOGGLE;
+    wire    CLOCK_STEP;
 
-wire				o_CLOCK;
-wire				o_CLOCK_n;
+    wire    CLOCK;
+    wire    CLOCK_n;
 
-Clock clock_module
-(
-    i_SYS_CLOCK,
-    i_HALT,
-    i_STEP_TOGGLE,
-    i_STEP_CLOCK,
+    Clock clock_module
+    (
+        i_SYS_CLOCK,
+        CLOCK_HALT,
+        CLOCK_STEP_TOGGLE,
+        CLOCK_STEP,
+
+        CLOCK,
+        CLOCK_n
+    );
+
+    // Output module
+    wire OUT_READ_BUS;
+
+    Output output_module
+    (
+        i_SYS_CLOCK,
+        BUS,
+        OUT_READ_BUS,
+        i_CLEAR_n,
+
+        o_SEG_A,
+        o_SEG_B,
+        o_SEG_C,
+        o_SEG_D,
+        o_SEG_E,
+        o_SEG_F,
+        o_SEG_G,
+        o_SEG_DP,
+
+        o_SEL_0,
+        o_SEL_1,
+        o_SEL_2,
+        o_SEL_3,
+        o_SEL_4,
+        o_SEL_5
+    );
+
+    wire    PC_COUNT_ENABLE;
+    wire    PC_JUMP_n;
+    wire    PC_WRITE_BUS;
+
+    ProgramCounter #(DATA_WIDTH) program_counter
+    (
+        CLOCK,
+        BUS,
+        PC_COUNT_ENABLE,
+        i_CLEAR_n,
+        PC_JUMP_n,
+        PC_WRITE_BUS
+    );
+
+    wire    A_READ_BUS_n;
+    wire    A_WRITE_BUS_n;
+
+    Register #(DATA_WIDTH) a_register
+    (
+        CLOCK,
+        BUS,
+        i_CLEAR,
+        A_READ_BUS_n,
+        A_WRITE_BUS_n
+    );
+
+    wire    B_READ_BUS_n;
+    wire    B_WRITE_BUS_n;
+
+    Register #(DATA_WIDTH) b_register
+    (
+        CLOCK,
+        BUS,
+        i_CLEAR,
+        B_READ_BUS_n,
+        B_WRITE_BUS_n
+    )
+
+    begin
+        assign i_CLEAR_n    = 1;
+        assign i_CLEAR      = 0;
     
-    o_CLOCK,
-    o_CLOCK_n
-);
+        // The LED is active low, so use the inverted clock signal to drive it.
+        assign i_LED_0      = CLOCK_n;
+        
+        assign CLOCK_STEP_TOGGLE    = i_BTN_0;
+        assign CLOCK_STEP           = i_BTN_1;
+        
+        assign PC_COUNT_ENABLE      = 1;
+        assign PC_WRITE_BUS         = i_BTN_2;
+        assign PC_JUMP_n            = 1;
+        
+        assign OUT_READ_BUS         = 1;
 
-// Output module
-wire				i_READ_BUS;
-
-Output output_module
-(
-    i_SYS_CLOCK,
-    BUS,
-    i_READ_BUS,
-    i_CLEAR_n,
-    
-    o_SEG_A,
-    o_SEG_B,
-    o_SEG_C,
-    o_SEG_D,
-    o_SEG_E,
-    o_SEG_F,
-    o_SEG_G,
-    o_SEG_DP,
-    
-    o_SEL_0,
-    o_SEL_1,
-    o_SEL_2,
-    o_SEL_3,
-    o_SEL_4,
-    o_SEL_5
-);
-
-wire				i_COUNT_ENABLE;
-wire				i_JUMP_n;
-wire				i_OUTPUT_n;
-
-ProgramCounter #(DATA_WIDTH) program_counter
-(
-    o_CLOCK,
-    BUS,
-    i_COUNT_ENABLE,
-    i_CLEAR_n,
-    i_JUMP_n,
-    i_OUTPUT_n
-);
-
-wire i_AI_n;
-wire i_AO_n;
-
-Register #(DATA_WIDTH) a_register
-(
-    o_CLOCK,
-    BUS,
-    i_CLEAR,
-    i_AI_n,
-    i_AO_n
-);
-
-begin
-    assign i_CLEAR_n 			= 1;
-    assign i_CLEAR = 0;
-  
-    // The LED is active low, so use the inverted clock signal to drive it.
-    assign i_LED_0 			= o_CLOCK_n;
-    
-    // Clock module drivers.
-    assign i_STEP_TOGGLE		= i_BTN_0;
-    assign i_STEP_CLOCK 		= i_BTN_1;
-    
-    assign i_COUNT_ENABLE       = 1;
-    assign i_OUTPUT_n           = i_BTN_2;
-    assign i_JUMP_n 			= 1;
-    
-    assign i_READ_BUS			= 1;
-
-    assign i_AI_n               = i_BTN_3;
-    assign i_AO_n               = i_BTN_4;
-end
-
+        assign A_READ_BUS_n         = i_BTN_3;
+        assign A_WRITE_BUS_n        = i_BTN_4;
+    end
 endmodule

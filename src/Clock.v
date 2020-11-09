@@ -1,19 +1,19 @@
 `timescale 1ns / 1ps
 module Clock
 (
-    input		i_SYS_CLOCK,	// The system clock input from the on-board crystal
-    input		i_HALT,			// Halt signal, holds o_CLOCK low and o_CLOCK_n high
-    input		i_STEP_TOGGLE,	// Toggles manual stepping
-    input		i_STEP_CLOCK,	// Drives o_CLOCK iff manual stepping has been enabled
-    
-    output		o_CLOCK,
-    output		o_CLOCK_n
+    input       i_SYS_CLOCK,    // The system clock input from the on-board crystal
+    input       i_HALT,	        // Halt signal, holds o_CLOCK low and o_CLOCK_n high
+    input       i_STEP_TOGGLE,  // Toggles manual stepping
+    input       i_STEP_CLOCK,   // Drives o_CLOCK iff manual stepping has been enabled
+
+    output      o_CLOCK,
+    output      o_CLOCK_n
 );  
 
-    wire		w_CLOCK;
-    
-    reg			r_CLOCK_SIGNAL	= 0;
-    reg			r_MANUAL_STEP	= 0;	// 1-bit register (a Boolean, essentially) for keeping track of whether manual stepping is enabled 
+    wire        w_CLOCK;
+
+    reg         r_CLOCK_SIGNAL	= 0;
+    reg         r_MANUAL_STEP	= 0;	// 1-bit register (a Boolean, essentially) for keeping track of whether manual stepping is enabled 
 
     parameter 	DIVISOR			= 32'hFFFFFF;   // Default divisor for the system clock
     

@@ -1,12 +1,12 @@
 `timescale 1ns / 1ps
 module ProgramCounter
 (
-    input				i_CLOCK,		// Clock input
-    inout	[DATA_WIDTH - 1:0]	    BUS,			// 32-bit CPU bus
-    input				i_COUNT_ENABLE,	// Increments counter on rising edge of clock
-    input				i_CLEAR_n,		// Async clear
-    input				i_JUMP_n,		// Active-low jump signal, loads 32-bit value from bus into counter
-    input				i_OUTPUT_n		// Active-low output signal, pushes the 32-bit counter value onto the bus
+    input                           i_CLOCK,        // Clock input
+    inout	[DATA_WIDTH - 1:0]      BUS,            // Main, variable-width CPU bus
+    input                           i_COUNT_ENABLE, // Increments counter on rising edge of clock
+    input                           i_CLEAR_n,      // Async clear
+    input                           i_JUMP_n,       // Active-low jump signal, loads 32-bit value from bus into counter
+    input                           i_OUTPUT_n      // Active-low output signal, pushes the 32-bit counter value onto the bus
 );
 
     parameter   DATA_WIDTH  = 8; 
