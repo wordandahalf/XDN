@@ -10,7 +10,7 @@ module Register
 
     parameter DATA_WIDTH = 8;
 
-    reg     [DATA_WIDTH - 1:0]          r_VALUE = 0;
+    reg     [DATA_WIDTH - 1:0]      r_VALUE = 0;
 
     always @(posedge i_CLOCK, posedge i_CLEAR)
     begin

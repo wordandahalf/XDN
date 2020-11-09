@@ -11,7 +11,7 @@ module ProgramCounter
 
     parameter   DATA_WIDTH  = 8; 
 
-    reg	[DATA_WIDTH - 1:0]	r_COUNTER	= 0;
+    reg	[DATA_WIDTH - 1:0]  r_COUNTER   = 0;
 
     always @(posedge i_CLOCK, negedge i_CLEAR_n)
     begin

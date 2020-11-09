@@ -7,7 +7,7 @@ module Divider
  
     reg         r_CLOCK_SIGNAL	= 0;
  
-    reg	[31:0]  r_DIVIDER       = 32'b0;
+    reg [31:0]  r_DIVIDER       = 32'b0;
     parameter   DIVISOR         = 32'h2;
 
     always @(posedge i_SYS_CLOCK)

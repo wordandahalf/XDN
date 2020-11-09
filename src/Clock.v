@@ -15,7 +15,7 @@ module Clock
     reg         r_CLOCK_SIGNAL	= 0;
     reg         r_MANUAL_STEP	= 0;	// 1-bit register (a Boolean, essentially) for keeping track of whether manual stepping is enabled 
 
-    parameter 	DIVISOR			= 32'hFFFFFF;   // Default divisor for the system clock
+    parameter   DIVISOR         = 32'hFFFFFF;   // Default divisor for the system clock
     
     Divider #(DIVISOR) clock_divider
     (
@@ -46,6 +46,6 @@ module Clock
         end
     end
 
-    assign o_CLOCK				= r_CLOCK_SIGNAL;
-    assign o_CLOCK_n			= !o_CLOCK;
+    assign o_CLOCK      = r_CLOCK_SIGNAL;
+    assign o_CLOCK_n    = !o_CLOCK;
 endmodule

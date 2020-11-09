@@ -31,14 +31,14 @@ module Output
     wire        w_CLOCK;
     
     // The 24-bit value to display on the 6 seven-segment displays.
-    reg	[23:0]  r_VALUE         = 24'b0;
+    reg [23:0]  r_VALUE         = 24'b0;
 
     // A bitfield that keeps track of the seven-segment currently being driven.
-    reg	[5:0]   r_DIGIT_SELECT  = 6'b1;
+    reg [5:0]   r_DIGIT_SELECT  = 6'b1;
     // The nybble that is to be displayed on the current seven-segment display.
-    reg	[3:0]   r_DIGIT_VALUE   = 4'b0;
+    reg [3:0]   r_DIGIT_VALUE   = 4'b0;
     // A bitfield storing the values of each individual segment of the currently driven seven-segnment display.
-    reg	[6:0]   r_SEGMENT_VALUES= 7'b0;
+    reg [6:0]   r_SEGMENT_VALUES= 7'b0;
 
     // Clock divider, divides the FPGA's 50MHz signal by 0x7FFF.
     Divider #(DIVISOR) clock_divider
