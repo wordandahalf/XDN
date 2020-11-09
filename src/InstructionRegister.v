@@ -1,5 +1,5 @@
 `timescale 1ns / 1ps
-module Register
+module InstructionRegister
 (
     input                           i_CLOCK,        // Clock input
     inout   [DATA_WIDTH - 1:0]      BUS,            // Main, variable-width CPU data bus
@@ -7,10 +7,10 @@ module Register
     input                           i_READ_BUS_n,   // Active-low signal to read the bus
     input                           i_WRITE_BUS_n,  // Active-low signal to write to the bus
 
-    output [DATA_WIDTH - 1:0]       o_DATA          // Output bus for ALU
+    output  [(DATA_WIDTH / 2) - 1:0] o_DATA          // Higher nibble output bus for CU
 );
 
-    parameter DATA_WIDTH = 8;
+    parameter DATA_WIDTH = 8'h8;
 
     reg     [DATA_WIDTH - 1:0]      r_VALUE = 0;
 
@@ -27,6 +27,6 @@ module Register
         end
     end
 
-    assign o_DATA   = r_VALUE;
+    assign o_DATA   = r_VALUE[(DATA_WIDTH - 1): (DATA_WIDTH / 2)];
     assign BUS      = (!i_WRITE_BUS_n) ? r_VALUE : 'bz;
 endmodule

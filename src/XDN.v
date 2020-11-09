@@ -32,8 +32,8 @@ module XDN
 
     // CPU-wide connections.
     wire    [DATA_WIDTH - 1:0]      BUS;
-    wire                            i_CLEAR_n;
-    wire                            i_CLEAR;
+    wire                            CLEAR_n;
+    wire                            CLEAR;
 
     // Clock module
     wire    CLOCK_HALT;
@@ -62,7 +62,7 @@ module XDN
         i_SYS_CLOCK,
         BUS,
         OUT_READ_BUS,
-        i_CLEAR_n,
+        CLEAR_n,
 
         o_SEG_A,
         o_SEG_B,
@@ -90,7 +90,7 @@ module XDN
         CLOCK,
         BUS,
         PC_COUNT_ENABLE,
-        i_CLEAR_n,
+        CLEAR_n,
         PC_JUMP_n,
         PC_WRITE_BUS
     );
@@ -98,33 +98,57 @@ module XDN
     wire    A_READ_BUS_n;
     wire    A_WRITE_BUS_n;
 
+    wire    [DATA_WIDTH - 1:0]  A_DATA;
+
     Register #(DATA_WIDTH) a_register
     (
         CLOCK,
         BUS,
-        i_CLEAR,
+        CLEAR,
         A_READ_BUS_n,
-        A_WRITE_BUS_n
+        A_WRITE_BUS_n,
+
+        A_DATA
     );
 
     wire    B_READ_BUS_n;
     wire    B_WRITE_BUS_n;
 
+    wire    [DATA_WIDTH - 1:0] B_DATA;
+
     Register #(DATA_WIDTH) b_register
     (
         CLOCK,
         BUS,
-        i_CLEAR,
+        CLEAR,
         B_READ_BUS_n,
-        B_WRITE_BUS_n
-    )
+        B_WRITE_BUS_n,
+
+        B_DATA
+    );
+
+    wire    IR_READ_BUS_n;
+    wire    IR_WRITE_BUS_n;
+
+    wire    [DATA_WIDTH - 1:0] IR_DATA;
+
+    InstructionRegister #(DATA_WIDTH) instruction_register
+    (
+        CLOCK,
+        BUS,
+        CLEAR,
+        IR_READ_BUS_n,
+        IR_WRITE_BUS_n,
+
+        IR_DATA
+    );
 
     begin
-        assign i_CLEAR_n    = 1;
-        assign i_CLEAR      = 0;
+        assign CLEAR_n              = 1;
+        assign CLEAR                = 0;
     
         // The LED is active low, so use the inverted clock signal to drive it.
-        assign i_LED_0      = CLOCK_n;
+        assign i_LED_0              = CLOCK_n;
         
         assign CLOCK_STEP_TOGGLE    = i_BTN_0;
         assign CLOCK_STEP           = i_BTN_1;
@@ -137,5 +161,11 @@ module XDN
 
         assign A_READ_BUS_n         = i_BTN_3;
         assign A_WRITE_BUS_n        = i_BTN_4;
+
+        assign B_READ_BUS_n         = 1;
+        assign B_WRITE_BUS_n        = 1;
+
+        assign IR_READ_BUS_n        = 1;
+        assign IR_WRITE_BUS_n       = 1;
     end
 endmodule

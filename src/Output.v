@@ -3,7 +3,7 @@
 module Output
 (
     input                       i_SYS_CLOCK,    // The raw system clock input from the on-board crystal
-    input [DATA_WIDTH -1:0]     i_BUS,          // Main, variable-width CPU bus
+    input [DATA_WIDTH - 1:0]    i_BUS,          // Main, variable-width CPU bus
     input                       i_READ_BUS,     // Indicates to the module to read bits 0-23 of the bus into r_VALUE.
     input                       i_CLEAR_n,      // Active low clear signal, sets r_NUMBER to 0.
     
@@ -55,7 +55,7 @@ module Output
         if (!i_CLEAR_n)
             r_VALUE <= 24'b0;
         else if(i_READ_BUS)
-            r_VALUE <= i_BUS[23:0];
+            r_VALUE <= i_BUS[DATA_WIDTH - 1:0];
     end
     
     // Updates r_DIGIT_SELECT every (divided) clock cycle.
