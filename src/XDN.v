@@ -3,7 +3,10 @@ module XDN
 (
     input   i_SYS_CLOCK,
 
-    output  i_LED_0,
+    output  o_LED_0,
+    output  o_LED_1,
+    output  o_LED_2,
+    output  o_LED_3,
 
     input   i_BTN_0,
     input   i_BTN_1,
@@ -43,7 +46,7 @@ module XDN
     wire    CLOCK;
     wire    CLOCK_n;
 
-    Clock clock_module
+    Clock #(32'h7FFFFF) clock_module
     (
         i_SYS_CLOCK,
         CLOCK_HALT,
@@ -57,7 +60,7 @@ module XDN
     // Output module
     wire OUT_READ_BUS;
 
-    Output output_module
+    Output #(DATA_WIDTH) output_module
     (
         i_SYS_CLOCK,
         BUS,
@@ -81,9 +84,10 @@ module XDN
         o_SEL_5
     );
 
+    // Program counter
     wire    PC_COUNT_ENABLE;
     wire    PC_JUMP_n;
-    wire    PC_WRITE_BUS;
+    wire    PC_WRITE_BUS_n;
 
     ProgramCounter #(DATA_WIDTH) program_counter
     (
@@ -92,9 +96,10 @@ module XDN
         PC_COUNT_ENABLE,
         CLEAR_n,
         PC_JUMP_n,
-        PC_WRITE_BUS
+        PC_WRITE_BUS_n
     );
 
+    // A register
     wire    A_READ_BUS_n;
     wire    A_WRITE_BUS_n;
 
@@ -111,6 +116,7 @@ module XDN
         A_DATA
     );
 
+    // B register
     wire    B_READ_BUS_n;
     wire    B_WRITE_BUS_n;
 
@@ -127,10 +133,11 @@ module XDN
         B_DATA
     );
 
+    // Instruction register
     wire    IR_READ_BUS_n;
     wire    IR_WRITE_BUS_n;
 
-    wire    [DATA_WIDTH - 1:0] IR_DATA;
+    wire    [(DATA_WIDTH / 2) - 1:0] IR_DATA;
 
     InstructionRegister #(DATA_WIDTH) instruction_register
     (
@@ -143,29 +150,68 @@ module XDN
         IR_DATA
     );
 
+    // ALU
+    wire    ALU_WRITE_BUS_n;
+    wire    ALU_SUBTRACT;
+
+    wire    FLAGS_UPDATE_n;
+    wire    ZERO_FLAG;
+    wire    CARRY_FLAG;
+
+    ALU #(DATA_WIDTH) alu
+    (
+        A_DATA,
+        B_DATA,
+        ALU_WRITE_BUS_n,
+        ALU_SUBTRACT,
+        BUS,
+
+        CLOCK,
+        CLEAR,
+        FLAGS_UPDATE_n,
+
+        ZERO_FLAG,
+        CARRY_FLAG
+    );
+
+    // Keeps track of the simple FSM:
+    // When 0, the PC writes its value to the bus, which is read by the A and B registers
+    // When 1, the ALU adds the two registers and writes the result to the bus, which is read by the output module
+    reg     r_STATE = 0;
+
     begin
+        always @(posedge CLOCK)
+            r_STATE = !r_STATE;
+
         assign CLEAR_n              = 1;
         assign CLEAR                = 0;
     
-        // The LED is active low, so use the inverted clock signal to drive it.
-        assign i_LED_0              = CLOCK_n;
+        assign o_LED_0              = CLOCK;
+        assign o_LED_1              = !ALU_WRITE_BUS_n;
+        assign o_LED_2              = ZERO_FLAG;
+        assign o_LED_3              = CARRY_FLAG;
         
         assign CLOCK_STEP_TOGGLE    = i_BTN_0;
         assign CLOCK_STEP           = i_BTN_1;
         
         assign PC_COUNT_ENABLE      = 1;
-        assign PC_WRITE_BUS         = i_BTN_2;
+        assign PC_WRITE_BUS_n       = r_STATE;
         assign PC_JUMP_n            = 1;
         
-        assign OUT_READ_BUS         = 1;
+        assign OUT_READ_BUS         = !r_STATE;
 
-        assign A_READ_BUS_n         = i_BTN_3;
-        assign A_WRITE_BUS_n        = i_BTN_4;
+        assign A_READ_BUS_n         = r_STATE;
+        assign A_WRITE_BUS_n        = 1;
 
-        assign B_READ_BUS_n         = 1;
+        assign B_READ_BUS_n         = r_STATE;
         assign B_WRITE_BUS_n        = 1;
 
         assign IR_READ_BUS_n        = 1;
         assign IR_WRITE_BUS_n       = 1;
+
+        assign ALU_WRITE_BUS_n      = !r_STATE;
+        assign ALU_SUBTRACT         = 0;
+
+        assign FLAGS_UPDATE_n       = !r_STATE;
     end
 endmodule
