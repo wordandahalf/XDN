@@ -35,8 +35,7 @@ module Clock
         // i_HALT stops the clock
         if (i_HALT)
             r_CLOCK_SIGNAL = 1'b0;
-        else
-        begin
+        else begin
             // If manual stepping is enabled, pass that signal through.
             if (r_MANUAL_STEP)
                 r_CLOCK_SIGNAL = i_STEP_CLOCK;

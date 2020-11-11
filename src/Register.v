@@ -16,12 +16,10 @@ module Register
 
     always @(posedge i_CLOCK, posedge i_CLEAR)
     begin
-        if (i_CLEAR)
-        begin
+        if (i_CLEAR) begin
             r_VALUE <= 0;
         end
-        else
-        begin
+        else begin
             if(!i_READ_BUS_n)
                 r_VALUE <= BUS;
         end

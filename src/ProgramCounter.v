@@ -22,8 +22,7 @@ module ProgramCounter
         else if (!i_JUMP_n)
             r_COUNTER <= BUS;
         // Else if i_COUNT_ENABLE, increment the counter
-        else if (i_COUNT_ENABLE)
-        begin
+        else if (i_COUNT_ENABLE) begin
         //	if &r_COUNTER is full, it will overflow
             if (&r_COUNTER)
                 r_COUNTER <= 0;
