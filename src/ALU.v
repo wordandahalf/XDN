@@ -29,12 +29,10 @@ module ALU
     // Perform the arithmetic
     always @(i_A_DATA, i_B_DATA, i_SUB)
     begin
-        if(i_SUB) begin
-            r_RESULT <= i_A_DATA + (~i_B_DATA + 1'b1);
-        end
-        else begin
+        if(i_SUB)
+            r_RESULT <= i_A_DATA - i_B_DATA;
+        else
             r_RESULT <= i_A_DATA + i_B_DATA;
-        end
     end
 
     // Clear or update the flags

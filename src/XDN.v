@@ -187,18 +187,18 @@ module XDN
         assign CLEAR                = 0;
     
         assign o_LED_0              = CLOCK;
-        assign o_LED_1              = !ALU_WRITE_BUS_n;
+        assign o_LED_1              = r_STATE;
         assign o_LED_2              = ZERO_FLAG;
         assign o_LED_3              = CARRY_FLAG;
         
         assign CLOCK_STEP_TOGGLE    = i_BTN_0;
         assign CLOCK_STEP           = i_BTN_1;
         
-        assign PC_COUNT_ENABLE      = 1;
+        assign PC_COUNT_ENABLE      = r_STATE;
         assign PC_WRITE_BUS_n       = r_STATE;
         assign PC_JUMP_n            = 1;
         
-        assign OUT_READ_BUS         = !r_STATE;
+        assign OUT_READ_BUS         = r_STATE;
 
         assign A_READ_BUS_n         = r_STATE;
         assign A_WRITE_BUS_n        = 1;
@@ -210,7 +210,7 @@ module XDN
         assign IR_WRITE_BUS_n       = 1;
 
         assign ALU_WRITE_BUS_n      = !r_STATE;
-        assign ALU_SUBTRACT         = 0;
+        assign ALU_SUBTRACT         = !i_BTN_3; // Buttons are high when open.
 
         assign FLAGS_UPDATE_n       = !r_STATE;
     end
