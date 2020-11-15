@@ -1,0 +1,342 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wave_config>
+   <wave_state>
+   </wave_state>
+   <db_ref_list>
+      <db_ref path="C:/Users/Ryan/Documents/Workspace/XDN/XDN_TB_isim_beh.wdb" id="1" type="auto">
+         <top_modules>
+            <top_module name="XDN_TB" />
+            <top_module name="glbl" />
+         </top_modules>
+      </db_ref>
+   </db_ref_list>
+   <WVObjectSize size="15" />
+   <wvobject fp_name="/XDN_TB/i_SYS_CLOCK" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">i_SYS_CLOCK</obj_property>
+      <obj_property name="ObjectShortName">i_SYS_CLOCK</obj_property>
+      <obj_property name="UseCustomSignalColor">true</obj_property>
+      <obj_property name="CustomSignalColor">#ffffff</obj_property>
+   </wvobject>
+   <wvobject fp_name="group25" type="group">
+      <obj_property name="label">LEDs</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <wvobject fp_name="/XDN_TB/o_LED_0" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">o_LED_0</obj_property>
+         <obj_property name="ObjectShortName">o_LED_0</obj_property>
+      </wvobject>
+      <wvobject fp_name="/XDN_TB/o_LED_1" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">o_LED_1</obj_property>
+         <obj_property name="ObjectShortName">o_LED_1</obj_property>
+      </wvobject>
+      <wvobject fp_name="/XDN_TB/o_LED_2" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">o_LED_2</obj_property>
+         <obj_property name="ObjectShortName">o_LED_2</obj_property>
+      </wvobject>
+      <wvobject fp_name="/XDN_TB/o_LED_3" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">o_LED_3</obj_property>
+         <obj_property name="ObjectShortName">o_LED_3</obj_property>
+      </wvobject>
+   </wvobject>
+   <wvobject fp_name="group26" type="group">
+      <obj_property name="label">SSD</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <wvobject fp_name="/XDN_TB/o_SEG_B" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">o_SEG_B</obj_property>
+         <obj_property name="ObjectShortName">o_SEG_B</obj_property>
+      </wvobject>
+      <wvobject fp_name="/XDN_TB/o_SEG_C" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">o_SEG_C</obj_property>
+         <obj_property name="ObjectShortName">o_SEG_C</obj_property>
+      </wvobject>
+      <wvobject fp_name="/XDN_TB/o_SEG_D" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">o_SEG_D</obj_property>
+         <obj_property name="ObjectShortName">o_SEG_D</obj_property>
+      </wvobject>
+      <wvobject fp_name="/XDN_TB/o_SEG_E" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">o_SEG_E</obj_property>
+         <obj_property name="ObjectShortName">o_SEG_E</obj_property>
+      </wvobject>
+      <wvobject fp_name="/XDN_TB/o_SEG_F" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">o_SEG_F</obj_property>
+         <obj_property name="ObjectShortName">o_SEG_F</obj_property>
+      </wvobject>
+      <wvobject fp_name="/XDN_TB/o_SEG_G" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">o_SEG_G</obj_property>
+         <obj_property name="ObjectShortName">o_SEG_G</obj_property>
+      </wvobject>
+      <wvobject fp_name="/XDN_TB/o_SEG_DP" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">o_SEG_DP</obj_property>
+         <obj_property name="ObjectShortName">o_SEG_DP</obj_property>
+      </wvobject>
+      <wvobject fp_name="/XDN_TB/o_SEL_0" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">o_SEL_0</obj_property>
+         <obj_property name="ObjectShortName">o_SEL_0</obj_property>
+      </wvobject>
+      <wvobject fp_name="/XDN_TB/o_SEL_1" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">o_SEL_1</obj_property>
+         <obj_property name="ObjectShortName">o_SEL_1</obj_property>
+      </wvobject>
+      <wvobject fp_name="/XDN_TB/o_SEL_2" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">o_SEL_2</obj_property>
+         <obj_property name="ObjectShortName">o_SEL_2</obj_property>
+      </wvobject>
+      <wvobject fp_name="/XDN_TB/o_SEL_3" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">o_SEL_3</obj_property>
+         <obj_property name="ObjectShortName">o_SEL_3</obj_property>
+      </wvobject>
+      <wvobject fp_name="/XDN_TB/o_SEL_4" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">o_SEL_4</obj_property>
+         <obj_property name="ObjectShortName">o_SEL_4</obj_property>
+      </wvobject>
+      <wvobject fp_name="/XDN_TB/o_SEL_5" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">o_SEL_5</obj_property>
+         <obj_property name="ObjectShortName">o_SEL_5</obj_property>
+      </wvobject>
+   </wvobject>
+   <wvobject fp_name="group27" type="group">
+      <obj_property name="label">Buttons</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <wvobject fp_name="/XDN_TB/o_SEG_A" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">o_SEG_A</obj_property>
+         <obj_property name="ObjectShortName">o_SEG_A</obj_property>
+      </wvobject>
+      <wvobject fp_name="/XDN_TB/i_BTN_0" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">i_BTN_0</obj_property>
+         <obj_property name="ObjectShortName">i_BTN_0</obj_property>
+      </wvobject>
+      <wvobject fp_name="/XDN_TB/i_BTN_1" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">i_BTN_1</obj_property>
+         <obj_property name="ObjectShortName">i_BTN_1</obj_property>
+      </wvobject>
+      <wvobject fp_name="/XDN_TB/i_BTN_2" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">i_BTN_2</obj_property>
+         <obj_property name="ObjectShortName">i_BTN_2</obj_property>
+      </wvobject>
+      <wvobject fp_name="/XDN_TB/i_BTN_3" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">i_BTN_3</obj_property>
+         <obj_property name="ObjectShortName">i_BTN_3</obj_property>
+      </wvobject>
+      <wvobject fp_name="/XDN_TB/i_BTN_4" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">i_BTN_4</obj_property>
+         <obj_property name="ObjectShortName">i_BTN_4</obj_property>
+      </wvobject>
+   </wvobject>
+   <wvobject fp_name="divider28" type="divider">
+      <obj_property name="label">XDN</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="BkColor">128 128 255</obj_property>
+      <obj_property name="TextColor">230 230 230</obj_property>
+   </wvobject>
+   <wvobject fp_name="/XDN_TB/uut/BUS" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">BUS[7:0]</obj_property>
+      <obj_property name="ObjectShortName">BUS[7:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+      <obj_property name="UseCustomSignalColor">true</obj_property>
+      <obj_property name="CustomSignalColor">#ff0000</obj_property>
+   </wvobject>
+   <wvobject fp_name="group29" type="group">
+      <obj_property name="label">Output</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <wvobject fp_name="/XDN_TB/uut/output_module/r_VALUE" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">r_VALUE[23:0]</obj_property>
+         <obj_property name="ObjectShortName">r_VALUE[23:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+         <obj_property name="UseCustomSignalColor">true</obj_property>
+         <obj_property name="CustomSignalColor">#ff0000</obj_property>
+      </wvobject>
+      <wvobject fp_name="/XDN_TB/uut/output_module/i_READ_BUS" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">i_READ_BUS</obj_property>
+         <obj_property name="ObjectShortName">i_READ_BUS</obj_property>
+         <obj_property name="UseCustomSignalColor">true</obj_property>
+         <obj_property name="CustomSignalColor">#00ffff</obj_property>
+      </wvobject>
+   </wvobject>
+   <wvobject fp_name="group32" type="group">
+      <obj_property name="label">A</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <wvobject fp_name="/XDN_TB/uut/a_register/r_VALUE" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">r_VALUE[7:0]</obj_property>
+         <obj_property name="ObjectShortName">r_VALUE[7:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+         <obj_property name="UseCustomSignalColor">true</obj_property>
+         <obj_property name="CustomSignalColor">#ff0000</obj_property>
+      </wvobject>
+      <wvobject fp_name="/XDN_TB/uut/a_register/i_READ_BUS" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">i_READ_BUS</obj_property>
+         <obj_property name="ObjectShortName">i_READ_BUS</obj_property>
+         <obj_property name="UseCustomSignalColor">true</obj_property>
+         <obj_property name="CustomSignalColor">#00ffff</obj_property>
+      </wvobject>
+      <wvobject fp_name="/XDN_TB/uut/a_register/i_WRITE_BUS" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">i_WRITE_BUS</obj_property>
+         <obj_property name="ObjectShortName">i_WRITE_BUS</obj_property>
+         <obj_property name="UseCustomSignalColor">true</obj_property>
+         <obj_property name="CustomSignalColor">#ff00ff</obj_property>
+      </wvobject>
+   </wvobject>
+   <wvobject fp_name="group37" type="group">
+      <obj_property name="label">B</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <wvobject fp_name="/XDN_TB/uut/b_register/r_VALUE" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">r_VALUE[7:0]</obj_property>
+         <obj_property name="ObjectShortName">r_VALUE[7:0]</obj_property>
+         <obj_property name="UseCustomSignalColor">true</obj_property>
+         <obj_property name="CustomSignalColor">#ff0000</obj_property>
+      </wvobject>
+      <wvobject fp_name="/XDN_TB/uut/b_register/i_READ_BUS" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">i_READ_BUS</obj_property>
+         <obj_property name="ObjectShortName">i_READ_BUS</obj_property>
+         <obj_property name="UseCustomSignalColor">true</obj_property>
+         <obj_property name="CustomSignalColor">#00ffff</obj_property>
+      </wvobject>
+      <wvobject fp_name="/XDN_TB/uut/b_register/i_WRITE_BUS" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">i_WRITE_BUS</obj_property>
+         <obj_property name="ObjectShortName">i_WRITE_BUS</obj_property>
+         <obj_property name="UseCustomSignalColor">true</obj_property>
+         <obj_property name="CustomSignalColor">#ff00ff</obj_property>
+      </wvobject>
+   </wvobject>
+   <wvobject fp_name="group46" type="group">
+      <obj_property name="label">IR</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <wvobject fp_name="/XDN_TB/uut/instruction_register/r_VALUE" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">r_VALUE[7:0]</obj_property>
+         <obj_property name="ObjectShortName">r_VALUE[7:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+         <obj_property name="UseCustomSignalColor">true</obj_property>
+         <obj_property name="CustomSignalColor">#ff0000</obj_property>
+      </wvobject>
+      <wvobject fp_name="/XDN_TB/uut/instruction_register/o_DATA" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">o_DATA[3:0]</obj_property>
+         <obj_property name="ObjectShortName">o_DATA[3:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+         <obj_property name="UseCustomSignalColor">true</obj_property>
+         <obj_property name="CustomSignalColor">#ff0000</obj_property>
+      </wvobject>
+      <wvobject fp_name="/XDN_TB/uut/instruction_register/i_READ_BUS" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">i_READ_BUS</obj_property>
+         <obj_property name="ObjectShortName">i_READ_BUS</obj_property>
+         <obj_property name="UseCustomSignalColor">true</obj_property>
+         <obj_property name="CustomSignalColor">#00ffff</obj_property>
+      </wvobject>
+      <wvobject fp_name="/XDN_TB/uut/instruction_register/i_WRITE_BUS" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">i_WRITE_BUS</obj_property>
+         <obj_property name="ObjectShortName">i_WRITE_BUS</obj_property>
+         <obj_property name="UseCustomSignalColor">true</obj_property>
+         <obj_property name="CustomSignalColor">#ff00ff</obj_property>
+      </wvobject>
+   </wvobject>
+   <wvobject fp_name="group57" type="group">
+      <obj_property name="label">MAR</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <wvobject fp_name="/XDN_TB/uut/mar/r_VALUE" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">r_VALUE[3:0]</obj_property>
+         <obj_property name="ObjectShortName">r_VALUE[3:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+         <obj_property name="UseCustomSignalColor">true</obj_property>
+         <obj_property name="CustomSignalColor">#ff0000</obj_property>
+      </wvobject>
+      <wvobject fp_name="/XDN_TB/uut/mar/i_CLEAR" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">i_CLEAR</obj_property>
+         <obj_property name="ObjectShortName">i_CLEAR</obj_property>
+         <obj_property name="UseCustomSignalColor">true</obj_property>
+         <obj_property name="CustomSignalColor">#ffff00</obj_property>
+      </wvobject>
+      <wvobject fp_name="/XDN_TB/uut/mar/i_READ_BUS" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">i_READ_BUS</obj_property>
+         <obj_property name="ObjectShortName">i_READ_BUS</obj_property>
+         <obj_property name="UseCustomSignalColor">true</obj_property>
+         <obj_property name="CustomSignalColor">#00ffff</obj_property>
+      </wvobject>
+   </wvobject>
+   <wvobject fp_name="group41" type="group">
+      <obj_property name="label">PC</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <wvobject fp_name="/XDN_TB/uut/program_counter/r_COUNTER" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">r_COUNTER[3:0]</obj_property>
+         <obj_property name="ObjectShortName">r_COUNTER[3:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+         <obj_property name="UseCustomSignalColor">true</obj_property>
+         <obj_property name="CustomSignalColor">#ff0000</obj_property>
+      </wvobject>
+      <wvobject fp_name="/XDN_TB/uut/program_counter/i_COUNT_ENABLE" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">i_COUNT_ENABLE</obj_property>
+         <obj_property name="ObjectShortName">i_COUNT_ENABLE</obj_property>
+         <obj_property name="UseCustomSignalColor">true</obj_property>
+         <obj_property name="CustomSignalColor">#ffff00</obj_property>
+      </wvobject>
+      <wvobject fp_name="/XDN_TB/uut/program_counter/i_JUMP" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">i_JUMP</obj_property>
+         <obj_property name="ObjectShortName">i_JUMP</obj_property>
+         <obj_property name="UseCustomSignalColor">true</obj_property>
+         <obj_property name="CustomSignalColor">#00ffff</obj_property>
+      </wvobject>
+      <wvobject fp_name="/XDN_TB/uut/program_counter/i_OUTPUT" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">i_OUTPUT</obj_property>
+         <obj_property name="ObjectShortName">i_OUTPUT</obj_property>
+         <obj_property name="UseCustomSignalColor">true</obj_property>
+         <obj_property name="CustomSignalColor">#ff00ff</obj_property>
+      </wvobject>
+   </wvobject>
+   <wvobject fp_name="group51" type="group">
+      <obj_property name="label">ALU</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <wvobject fp_name="/XDN_TB/uut/alu/i_WRITE_BUS" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">i_WRITE_BUS</obj_property>
+         <obj_property name="ObjectShortName">i_WRITE_BUS</obj_property>
+      </wvobject>
+      <wvobject fp_name="/XDN_TB/uut/alu/i_SUB" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">i_SUB</obj_property>
+         <obj_property name="ObjectShortName">i_SUB</obj_property>
+      </wvobject>
+      <wvobject fp_name="/XDN_TB/uut/alu/i_UPDATE_FLAGS" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">i_UPDATE_FLAGS</obj_property>
+         <obj_property name="ObjectShortName">i_UPDATE_FLAGS</obj_property>
+      </wvobject>
+      <wvobject fp_name="/XDN_TB/uut/alu/o_ZERO_FLAG" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">o_ZERO_FLAG</obj_property>
+         <obj_property name="ObjectShortName">o_ZERO_FLAG</obj_property>
+      </wvobject>
+      <wvobject fp_name="/XDN_TB/uut/alu/o_CARRY_FLAG" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">o_CARRY_FLAG</obj_property>
+         <obj_property name="ObjectShortName">o_CARRY_FLAG</obj_property>
+      </wvobject>
+   </wvobject>
+   <wvobject fp_name="group61" type="group">
+      <obj_property name="label">RAM</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <wvobject fp_name="/XDN_TB/uut/ram/r_VALUE" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">r_VALUE[7:0]</obj_property>
+         <obj_property name="ObjectShortName">r_VALUE[7:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/XDN_TB/uut/ram/r_RAM" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">r_RAM[0:15,7:0]</obj_property>
+         <obj_property name="ObjectShortName">r_RAM[0:15,7:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/XDN_TB/uut/ram/i_BUS_WRITE" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">i_BUS_WRITE</obj_property>
+         <obj_property name="ObjectShortName">i_BUS_WRITE</obj_property>
+      </wvobject>
+      <wvobject fp_name="/XDN_TB/uut/ram/i_BUS_READ" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">i_BUS_READ</obj_property>
+         <obj_property name="ObjectShortName">i_BUS_READ</obj_property>
+      </wvobject>
+   </wvobject>
+   <wvobject fp_name="group66" type="group">
+      <obj_property name="label">CU</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <wvobject fp_name="/XDN_TB/uut/cu/r_T_CYCLE" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">r_T_CYCLE[2:0]</obj_property>
+         <obj_property name="ObjectShortName">r_T_CYCLE[2:0]</obj_property>
+         <obj_property name="UseCustomSignalColor">true</obj_property>
+         <obj_property name="CustomSignalColor">#ff0000</obj_property>
+      </wvobject>
+      <wvobject fp_name="/XDN_TB/uut/cu/o_CONTROL_SIGNALS" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">o_CONTROL_SIGNALS[15:0]</obj_property>
+         <obj_property name="ObjectShortName">o_CONTROL_SIGNALS[15:0]</obj_property>
+         <obj_property name="UseCustomSignalColor">true</obj_property>
+         <obj_property name="CustomSignalColor">#ffff00</obj_property>
+      </wvobject>
+   </wvobject>
+</wave_config>
