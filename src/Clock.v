@@ -17,6 +17,8 @@ module Clock
 
     parameter   DIVISOR         = 32'hFFFFFF;   // Default divisor for the system clock
     
+    reg         HALTED          = 0;
+
     Divider #(DIVISOR) clock_divider
     (
         i_SYS_CLOCK,
@@ -34,17 +36,17 @@ module Clock
     begin
         // i_HALT stops the clock
         if (i_HALT)
-            r_CLOCK_SIGNAL = 1'b0;
+            HALTED <= 1;
         else begin
             // If manual stepping is enabled, pass that signal through.
             if (r_MANUAL_STEP)
-                r_CLOCK_SIGNAL = i_STEP_CLOCK;
+                r_CLOCK_SIGNAL <= i_STEP_CLOCK;
             // Otherwise, pass the divided clock signal through.
             else
-                r_CLOCK_SIGNAL = w_CLOCK;
+                r_CLOCK_SIGNAL <= w_CLOCK;
         end
     end
 
-    assign o_CLOCK      = r_CLOCK_SIGNAL;
+    assign o_CLOCK      = r_CLOCK_SIGNAL & !HALTED;
     assign o_CLOCK_n    = !o_CLOCK;
 endmodule

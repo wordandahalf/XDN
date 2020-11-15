@@ -31,10 +31,13 @@ module XDN
     output  o_SEL_5
 );
 
+    `include "src/ControlSignals.v"
+
+    parameter   CLOCK_DIVIDER = 'h7FFFF;
     parameter   DATA_WIDTH = 8;
     parameter   ADDRESS_WIDTH = 4;
     parameter   RAM_LENGTH = 16;
-
+    
     // CPU-wide connections.
     wire    [DATA_WIDTH - 1:0]      BUS;
     wire                            CLEAR_n;
@@ -48,7 +51,7 @@ module XDN
     wire    CLOCK;
     wire    CLOCK_n;
 
-    Clock #(32'h7FFFFF) clock_module
+    Clock #(CLOCK_DIVIDER) clock_module
     (
         i_SYS_CLOCK,
         CLOCK_HALT,
@@ -88,22 +91,22 @@ module XDN
 
     // Program counter
     wire    PC_COUNT_ENABLE;
-    wire    PC_JUMP_n;
-    wire    PC_WRITE_BUS_n;
+    wire    PC_JUMP;
+    wire    PC_WRITE_BUS;
 
-    ProgramCounter #(DATA_WIDTH) program_counter
+    ProgramCounter #(DATA_WIDTH, ADDRESS_WIDTH) program_counter
     (
         CLOCK,
         BUS,
         PC_COUNT_ENABLE,
         CLEAR_n,
-        PC_JUMP_n,
-        PC_WRITE_BUS_n
+        PC_JUMP,
+        PC_WRITE_BUS
     );
 
     // A register
-    wire    A_READ_BUS_n;
-    wire    A_WRITE_BUS_n;
+    wire    A_READ_BUS;
+    wire    A_WRITE_BUS;
 
     wire    [DATA_WIDTH - 1:0]  A_DATA;
 
@@ -112,15 +115,15 @@ module XDN
         CLOCK,
         BUS,
         CLEAR,
-        A_READ_BUS_n,
-        A_WRITE_BUS_n,
+        A_READ_BUS,
+        A_WRITE_BUS,
 
         A_DATA
     );
 
     // B register
-    wire    B_READ_BUS_n;
-    wire    B_WRITE_BUS_n;
+    wire    B_READ_BUS;
+    wire    B_WRITE_BUS;
 
     wire    [DATA_WIDTH - 1:0] B_DATA;
 
@@ -129,15 +132,15 @@ module XDN
         CLOCK,
         BUS,
         CLEAR,
-        B_READ_BUS_n,
-        B_WRITE_BUS_n,
+        B_READ_BUS,
+        B_WRITE_BUS,
 
         B_DATA
     );
 
     // Instruction register
-    wire    IR_READ_BUS_n;
-    wire    IR_WRITE_BUS_n;
+    wire    IR_READ_BUS;
+    wire    IR_WRITE_BUS;
 
     wire    [(DATA_WIDTH / 2) - 1:0] IR_DATA;
 
@@ -146,17 +149,17 @@ module XDN
         CLOCK,
         BUS,
         CLEAR,
-        IR_READ_BUS_n,
-        IR_WRITE_BUS_n,
+        IR_READ_BUS,
+        IR_WRITE_BUS,
 
         IR_DATA
     );
 
     // ALU
-    wire    ALU_WRITE_BUS_n;
+    wire    ALU_WRITE_BUS;
     wire    ALU_SUBTRACT;
 
-    wire    FLAGS_UPDATE_n;
+    wire    FLAGS_UPDATE;
     wire    ZERO_FLAG;
     wire    CARRY_FLAG;
 
@@ -164,19 +167,19 @@ module XDN
     (
         A_DATA,
         B_DATA,
-        ALU_WRITE_BUS_n,
+        ALU_WRITE_BUS,
         ALU_SUBTRACT,
         BUS,
 
         CLOCK,
         CLEAR,
-        FLAGS_UPDATE_n,
+        FLAGS_UPDATE,
 
         ZERO_FLAG,
         CARRY_FLAG
     );
 
-    wire    MAR_READ_BUS_n;
+    wire    MAR_READ_BUS;
     wire    [ADDRESS_WIDTH - 1:0] MAR_DATA;
 
     MAR #(ADDRESS_WIDTH) mar
@@ -184,12 +187,12 @@ module XDN
         CLOCK,
         BUS[ADDRESS_WIDTH - 1:0],
         CLEAR,
-        MAR_READ_BUS_n,
+        MAR_READ_BUS,
         MAR_DATA
     );
 
     wire    RAM_READ_BUS;
-    wire    RAM_WRITE_BUS_n;
+    wire    RAM_WRITE_BUS;
 
     RAM #(DATA_WIDTH, ADDRESS_WIDTH, RAM_LENGTH) ram
     (
@@ -197,57 +200,48 @@ module XDN
         BUS,
         MAR_DATA,
         RAM_READ_BUS,
-        RAM_WRITE_BUS_n
+        RAM_WRITE_BUS
     );
 
-    // Keeps track of the simple FSM:
-    // When 0, the PC writes its value to the bus, which is read by the A and B registers
-    // When 1, the ALU adds the two registers and writes the result to the bus, which is read by the RAM module and written to address 0x0
-    // When 2, the RAM module outputs the value of address 0x0 to the bus, which is read by the output register
-    reg [1:0]   r_STATE = 0;
+    wire    [CONTROL_WIDTH - 1:0]   CONTROL_SIGNALS;
+
+    ControlUnit #(DATA_WIDTH) cu
+    (
+        CLOCK,
+        IR_DATA,
+        ZERO_FLAG,
+        CARRY_FLAG,
+
+        CLEAR,
+        CLEAR_n,
+        CONTROL_SIGNALS
+    );
 
     begin
-        always @(posedge CLOCK)
-        begin
-            if(r_STATE == 'h2)
-                r_STATE = 0;
-            else
-                r_STATE = r_STATE + 1'b1;
-        end
-
-        assign CLEAR_n              = 1;
-        assign CLEAR                = 0;
-    
         assign o_LED_0              = CLOCK;
-        assign o_LED_1              = r_STATE[1];
-        assign o_LED_2              = r_STATE[0];
-        assign o_LED_3              = !RAM_WRITE_BUS_n;
+        assign o_LED_1              = CLOCK_HALT;
+        assign o_LED_2              = PC_JUMP;
+        assign o_LED_3              = RAM_WRITE_BUS;
         
         assign CLOCK_STEP_TOGGLE    = i_BTN_0;
         assign CLOCK_STEP           = i_BTN_1;
         
-        assign PC_COUNT_ENABLE      = r_STATE == 2; // High when state is two
-        assign PC_WRITE_BUS_n       = r_STATE != 0; // Low when state is zero 
-        assign PC_JUMP_n            = 1;
-        
-        assign OUT_READ_BUS         = r_STATE == 2; // High when state is two
-
-        assign A_READ_BUS_n         = r_STATE != 0; // Low when state is zero
-        assign A_WRITE_BUS_n        = 1;
-
-        assign B_READ_BUS_n         = r_STATE != 0; // Low when state is zero
-        assign B_WRITE_BUS_n        = 1;
-
-        assign IR_READ_BUS_n        = 1;
-        assign IR_WRITE_BUS_n       = 1;
-
-        assign ALU_WRITE_BUS_n      = r_STATE != 1; // Low when state is two
-        assign ALU_SUBTRACT         = !i_BTN_3; // Buttons are high when open.
-
-        assign FLAGS_UPDATE_n       = r_STATE != 1; // Low when state is one
-
-        assign MAR_READ_BUS_n       = 1;
-        assign RAM_READ_BUS         = r_STATE == 1; // High when state is one
-        assign RAM_WRITE_BUS_n      = r_STATE != 2; // Low when state is two
+        assign CLOCK_HALT           = CONTROL_SIGNALS[HALT_INDEX];
+        assign MAR_READ_BUS         = CONTROL_SIGNALS[MAR_IN_INDEX];
+        assign RAM_READ_BUS         = CONTROL_SIGNALS[RAM_IN_INDEX];
+        assign RAM_WRITE_BUS        = CONTROL_SIGNALS[RAM_OUT_INDEX];
+        assign IR_READ_BUS          = CONTROL_SIGNALS[IR_IN_INDEX];
+        assign IR_WRITE_BUS         = CONTROL_SIGNALS[IR_OUT_INDEX];
+        assign A_READ_BUS           = CONTROL_SIGNALS[A_IN_INDEX];
+        assign A_WRITE_BUS          = CONTROL_SIGNALS[A_OUT_INDEX];
+        assign ALU_WRITE_BUS        = CONTROL_SIGNALS[ALU_OUT_INDEX];
+        assign ALU_SUBTRACT         = CONTROL_SIGNALS[ALU_SUB_INDEX];
+        assign FLAGS_UPDATE         = CONTROL_SIGNALS[FLAGS_UPDATE_INDEX];
+        assign B_READ_BUS           = CONTROL_SIGNALS[B_IN_INDEX];
+        assign B_WRITE_BUS          = 0;
+        assign OUT_READ_BUS         = CONTROL_SIGNALS[OUT_IN_INDEX];
+        assign PC_COUNT_ENABLE      = CONTROL_SIGNALS[PC_INC_INDEX];
+        assign PC_WRITE_BUS         = CONTROL_SIGNALS[PC_OUT_INDEX];
+        assign PC_JUMP              = CONTROL_SIGNALS[JUMP_INDEX];
     end
 endmodule

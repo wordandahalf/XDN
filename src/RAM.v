@@ -6,7 +6,7 @@ module RAM
     input   [ADDRESS_WIDTH - 1:0]   i_MAR_DATA,
 
     input                           i_BUS_READ,
-    input                           i_BUS_WRITE_n
+    input                           i_BUS_WRITE
 );
 
     parameter   DATA_WIDTH      = 8;
@@ -29,5 +29,5 @@ module RAM
             r_RAM[i_MAR_DATA] = BUS;
     end
 
-    assign BUS = (!i_BUS_WRITE_n) ? r_RAM[i_MAR_DATA] : 'bz;
+    assign BUS = (i_BUS_WRITE) ? r_RAM[i_MAR_DATA] : 'bz;
 endmodule

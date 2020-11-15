@@ -3,7 +3,7 @@ module MAR
     input                           i_CLOCK,
     input   [ADDRESS_WIDTH - 1:0]   i_BUS,
     input                           i_CLEAR,
-    input                           i_READ_BUS_n,
+    input                           i_READ_BUS,
     
     output  [ADDRESS_WIDTH - 1:0]   o_DATA
 );
@@ -16,7 +16,7 @@ module MAR
     begin
         if(i_CLEAR)
             r_VALUE <= 0;
-        else if(!i_READ_BUS_n)
+        else if(i_READ_BUS)
             r_VALUE <= i_BUS;
     end
 
