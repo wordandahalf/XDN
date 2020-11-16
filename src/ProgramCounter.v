@@ -2,15 +2,15 @@
 module ProgramCounter
 (
     input                           i_CLOCK,        // Clock input
-    inout	[DATA_WIDTH - 1:0]      BUS,            // Main, variable-width CPU bus
+    inout	[DATA_WIDTH - 1:0]      BUS,            // Main CPU bus
     input                           i_COUNT_ENABLE, // Increments counter on rising edge of clock
     input                           i_CLEAR_n,      // Async clear
-    input                           i_JUMP,       // Active-low jump signal, loads 32-bit value from bus into counter
-    input                           i_OUTPUT      // Active-low output signal, pushes the 32-bit counter value onto the bus
+    input                           i_JUMP,         // Indicates to read the counter value from the bus
+    input                           i_OUTPUT        // Indicates to write the counter value to the bus
 );
 
-    parameter   DATA_WIDTH  = 8; 
-    parameter   ADDRESS_WIDTH = 4;
+    parameter   DATA_WIDTH      = 8; 
+    parameter   ADDRESS_WIDTH   = 4;
 
     reg	[ADDRESS_WIDTH - 1:0]  r_COUNTER   = 0;
 

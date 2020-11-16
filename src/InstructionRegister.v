@@ -4,10 +4,10 @@ module InstructionRegister
     input                           i_CLOCK,        // Clock input
     inout   [DATA_WIDTH - 1:0]      BUS,            // Main, variable-width CPU data bus
     input                           i_CLEAR,        // Async clear
-    input                           i_READ_BUS,   // Active-low signal to read the bus
-    input                           i_WRITE_BUS,  // Active-low signal to write to the bus
+    input                           i_READ_BUS,     // Active-low signal to read the bus
+    input                           i_WRITE_BUS,    // Active-low signal to write to the bus
 
-    output  [(DATA_WIDTH / 2) - 1:0] o_DATA          // Higher nibble output bus for CU
+    output  [(DATA_WIDTH / 2) - 1:0] o_DATA         // Higher nibble output for CU instruction decoding
 );
 
     parameter DATA_WIDTH = 8'h8;

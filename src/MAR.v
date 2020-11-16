@@ -1,9 +1,9 @@
 module MAR
 (
-    input                           i_CLOCK,
-    input   [ADDRESS_WIDTH - 1:0]   i_BUS,
-    input                           i_CLEAR,
-    input                           i_READ_BUS,
+    input                           i_CLOCK,    // Clock input
+    input   [ADDRESS_WIDTH - 1:0]   i_BUS,      // Main CPU bus
+    input                           i_CLEAR,    // Async clear
+    input                           i_READ_BUS, // Indicates to read the value from the bus
     
     output  [ADDRESS_WIDTH - 1:0]   o_DATA
 );

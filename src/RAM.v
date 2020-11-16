@@ -5,8 +5,8 @@ module RAM
     inout   [DATA_WIDTH - 1:0]      BUS,
     input   [ADDRESS_WIDTH - 1:0]   i_MAR_DATA,
 
-    input                           i_BUS_READ,
-    input                           i_BUS_WRITE
+    input                           i_READ_BUS,
+    input                           i_WRITE_BUS
 );
 
     parameter   DATA_WIDTH      = 8;
@@ -25,9 +25,9 @@ module RAM
 
     always @(posedge i_CLOCK)
     begin
-        if(i_BUS_READ)
+        if(i_READ_BUS)
             r_RAM[i_MAR_DATA] = BUS;
     end
 
-    assign BUS = (i_BUS_WRITE) ? r_RAM[i_MAR_DATA] : 'bz;
+    assign BUS = (i_WRITE_BUS) ? r_RAM[i_MAR_DATA] : 'bz;
 endmodule

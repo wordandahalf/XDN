@@ -1,8 +1,8 @@
 `timescale 1ns / 1ps
 module Divider
 (
-    input   i_SYS_CLOCK,
-    output  o_CLOCK
+    input   i_SYS_CLOCK,    // Clock signal from on-board 50MHz crystal
+    output  o_CLOCK         // Divided clock signal
 );
  
     reg         r_CLOCK_SIGNAL	= 0;

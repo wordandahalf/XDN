@@ -1,8 +1,8 @@
 `timescale 1ns / 1ps
 module ControlUnit
 (
-    input                               i_CLOCK_n,
-    input   [(DATA_WIDTH / 2) - 1:0]    i_IR_DATA,
+    input                               i_CLOCK,        // Clock input
+    input   [(DATA_WIDTH / 2) - 1:0]    i_IR_DATA,      // Instruction register data, contans the opcode of the current instruction
     input                               i_ZERO_FLAG,
     input                               i_CARRY_FLAG,
 
@@ -13,11 +13,13 @@ module ControlUnit
 
     parameter   DATA_WIDTH      = 8;
 
+    // Keeps track of instruction decoding
     reg [2:0]   r_T_CYCLE       = 0;
 
     `include "src/ControlSignals.v"
 
-    always @(posedge i_CLOCK_n)
+    // Updates t-cycle counter
+    always @(posedge i_CLOCK)
     begin
         // Update the clock
         if(r_T_CYCLE == 'h6)
@@ -28,7 +30,7 @@ module ControlUnit
 
     assign o_CLEAR = 0;
     assign o_CLEAR_n = 1;
-    assign o_CONTROL_SIGNALS = //0; 
+    assign o_CONTROL_SIGNALS =
         (r_T_CYCLE == 'h0) ? c_PC_OUT | c_MAR_IN :              //---|
                                                                 //   | Fetch
         (r_T_CYCLE == 'h1) ? c_RAM_OUT | c_IR_IN | c_PC_INC :   //---|
