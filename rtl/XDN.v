@@ -184,14 +184,17 @@ module XDN
     );
 
     wire    MAR_READ_BUS;
+    wire    MAR_WRITE_BUS;
     wire    [ADDRESS_WIDTH - 1:0] MAR_DATA;
 
-    MAR #(ADDRESS_WIDTH) mar
+    Register #(ADDRESS_WIDTH) mar
     (
         CLOCK,
         BUS[ADDRESS_WIDTH - 1:0],
         CLEAR,
         MAR_READ_BUS,
+        MAR_WRITE_BUS,
+
         MAR_DATA
     );
 
@@ -232,6 +235,7 @@ module XDN
         
         assign CLOCK_HALT           = CONTROL_SIGNALS[HALT_INDEX];
         assign MAR_READ_BUS         = CONTROL_SIGNALS[MAR_IN_INDEX];
+        assign MAR_WRITE_BUS        = 0;
         assign RAM_READ_BUS         = CONTROL_SIGNALS[RAM_IN_INDEX];
         assign RAM_WRITE_BUS        = CONTROL_SIGNALS[RAM_OUT_INDEX];
         assign IR_READ_BUS          = CONTROL_SIGNALS[IR_IN_INDEX];
