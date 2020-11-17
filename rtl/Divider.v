@@ -1,4 +1,4 @@
-`timescale 1ns / 1ps
+`timescale 1ps / 1ps
 module Divider
 (
     input   i_SYS_CLOCK,    // Clock signal from on-board 50MHz crystal
@@ -12,16 +12,16 @@ module Divider
 
     always @(posedge i_SYS_CLOCK)
     begin
-        r_DIVIDER = r_DIVIDER + 32'b1;
+        r_DIVIDER <= r_DIVIDER + 32'b1;
         
         // Reset the counter when it is full -- Verilog doesn't allow registers to overflow.
         if (r_DIVIDER > (DIVISOR - 32'b1))
-            r_DIVIDER = 32'b0;
+            r_DIVIDER <= 32'b0;
 
         if (r_DIVIDER < (DIVISOR / 2))
-            r_CLOCK_SIGNAL = 1'b0;
+            r_CLOCK_SIGNAL <= 1'b0;
         else
-            r_CLOCK_SIGNAL = 1'b1;
+            r_CLOCK_SIGNAL <= 1'b1;
     end
 
     assign  o_CLOCK = r_CLOCK_SIGNAL;

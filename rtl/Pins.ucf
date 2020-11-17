@@ -1,0 +1,29 @@
+NET "i_SYS_CLOCK" LOC = T8;
+
+NET "o_LED_0" LOC = P4;
+NET "o_LED_1" LOC = N5;
+NET "o_LED_2" LOC = P5;
+NET "o_LED_3" LOC = M6;
+
+NET "i_BTN_0" LOC = C3;
+NET "i_BTN_0" CLOCK_DEDICATED_ROUTE = FALSE;
+NET "i_BTN_1" LOC = D3;
+NET "i_BTN_2" LOC = E4;
+NET "i_BTN_3" LOC = E3;
+NET "i_BTN_4" LOC = L3;
+
+NET "o_SEG_A" LOC = C7;
+NET "o_SEG_B" LOC = E6;
+NET "o_SEG_C" LOC = C5;
+NET "o_SEG_D" LOC = F7;
+NET "o_SEG_E" LOC = D6;
+NET "o_SEG_F" LOC = E7;
+NET "o_SEG_G" LOC = D5;
+NET "o_SEG_DP" LOC = C6;
+
+NET "o_SEL_0" LOC = D8;
+NET "o_SEL_1" LOC = E8;
+NET "o_SEL_2" LOC = F9;
+NET "o_SEL_3" LOC = F10;
+NET "o_SEL_4" LOC = E10;
+NET "o_SEL_5" LOC = D9;

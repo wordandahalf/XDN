@@ -1,4 +1,6 @@
-`timescale 1ns / 1ps
+`timescale 1ps / 1ps
+
+/* verilator lint_off UNUSED */
 module XDN
 (
     input   i_SYS_CLOCK,
@@ -31,12 +33,14 @@ module XDN
     output  o_SEL_5
 );
 
-    `include "src/ControlSignals.v"
+    `include "rtl/ControlSignals.v"
 
-    parameter   CLOCK_DIVIDER = 'h7FFFF;
-    parameter   DATA_WIDTH = 8;
-    parameter   ADDRESS_WIDTH = 4;
-    parameter   RAM_LENGTH = 16;
+    parameter   CLOCK_DIVIDER           = 2;//'h7FFFF;
+    parameter   OUTPUT_CLOCK_DIVISOR    = 2;
+
+    parameter   DATA_WIDTH              = 8;
+    parameter   ADDRESS_WIDTH           = 4;
+    parameter   RAM_LENGTH              = 16;
     
     // CPU-wide connections.
     wire    [DATA_WIDTH - 1:0]      BUS;
@@ -65,7 +69,7 @@ module XDN
     // Output module
     wire OUT_READ_BUS;
 
-    Output #(DATA_WIDTH) output_module
+    Output #(DATA_WIDTH, OUTPUT_CLOCK_DIVISOR) output_module
     (
         i_SYS_CLOCK,
         BUS,
@@ -144,7 +148,7 @@ module XDN
 
     wire    [(DATA_WIDTH / 2) - 1:0] IR_DATA;
 
-    InstructionRegister #(DATA_WIDTH) instruction_register
+    InstructionRegister #(DATA_WIDTH, ADDRESS_WIDTH) instruction_register
     (
         CLOCK,
         BUS,
@@ -217,7 +221,7 @@ module XDN
         CONTROL_SIGNALS
     );
 
-    begin
+//    begin
         assign o_LED_0              = CLOCK;
         assign o_LED_1              = CLOCK_HALT;
         assign o_LED_2              = PC_JUMP;
@@ -243,5 +247,5 @@ module XDN
         assign PC_COUNT_ENABLE      = CONTROL_SIGNALS[PC_INC_INDEX];
         assign PC_WRITE_BUS         = CONTROL_SIGNALS[PC_OUT_INDEX];
         assign PC_JUMP              = CONTROL_SIGNALS[JUMP_INDEX];
-    end
+//    end
 endmodule

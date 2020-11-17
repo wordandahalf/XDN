@@ -1,0 +1,39 @@
+XDN_RTL_FOLDER		= rtl/
+XDN_RTL_MAIN_MODULE	= $(XDN_RTL_FOLDER)XDN.v
+XDN_RTL_SOURCES		= $(shell find $(XDN_RTL_FOLDER) -name '*.v')
+
+XDN_TEST_BENCH		= XDN.cpp
+
+VERILATOR_BUILD_FOLDER	= build/
+VERILATOR_MAKEFILE		= VXDN.mk
+VXDN					= $(VERILATOR_BUILD_FOLDER)VXDN
+XDN_TRACE_VCD			= trace.vcd
+
+VERILATOR				= verilator
+VERILATOR_FLAGS			= -I$(XDN_RTL_FOLDER) -Wall -cc $(XDN_RTL_MAIN_MODULE) -Mdir $(VERILATOR_BUILD_FOLDER) --trace --exe $(XDN_TEST_BENCH) -o VXDN
+
+MAKE					= make
+MAKE_FLAGS				= -C $(VERILATOR_BUILD_FOLDER) -j 6 -f $(VERILATOR_MAKEFILE)
+
+GTKWAVE					= gtkwave
+GTKWAVE_FLAGS			= $(XDN_TRACE_VCD)
+
+clean:
+	rm -rf $(VERILATOR_BUILD_FOLDER) $(XDN_TRACE_VCD)
+
+build: clean $(VXDN)
+
+run: $(VXDN)
+	@./$(VXDN)
+
+$(XDN_TRACE_VCD): run
+
+trace: $(XDN_TRACE_VCD)
+	-@echo "Opening $(XDN_TRACE_VCD) in GTKWave..."
+	@$(GTKWAVE) $(GTKWAVE_FLAGS)
+
+$(VXDN): $(XDN_TEST_BENCH) $(XDN_RTL_SOURCES)
+	-@echo "Verilating Verilog RTL..."
+	$(VERILATOR) $(VERILATOR_FLAGS)
+	-@echo "Compiling $(VXDN)"
+	$(MAKE) $(MAKE_FLAGS) 

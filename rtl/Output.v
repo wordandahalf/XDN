@@ -1,4 +1,4 @@
-`timescale 1ns / 1ps
+`timescale 1ps / 1ps
 
 module Output
 (
@@ -25,13 +25,13 @@ module Output
 );
 
     parameter   DATA_WIDTH  = 8;
-    parameter   DIVISOR     = 32'hFFFF;
+    parameter   DIVISOR     = 'hFFFF;
 
     // Output wire for clock divider.
-    wire        w_CLOCK;
+    wire        CLOCK;
     
     // The 24-bit value to display on the 6 seven-segment displays.
-    reg [23:0]  r_VALUE         = 24'b0;
+    reg [23:0]  r_VALUE         = 0;
 
     // A bitfield that keeps track of the seven-segment currently being driven.
     reg [5:0]   r_DIGIT_SELECT  = 6'b1;
@@ -44,22 +44,22 @@ module Output
     Divider #(DIVISOR) clock_divider
     (
         i_SYS_CLOCK,
-        w_CLOCK
+        CLOCK
     );
     
     // Clears r_VALUE when i_CLEAR_n goes low and
     // reads the bits 0-24 of i_BUS into r_VALUE when i_READ_BUS goes high.
     // i_CLEAR_n is async, i_READ_BUS is sync.
-    always @(posedge w_CLOCK, negedge i_CLEAR_n)
+    always @(posedge CLOCK, negedge i_CLEAR_n)
     begin
         if (!i_CLEAR_n)
             r_VALUE <= 24'b0;
         else if(i_READ_BUS)
-            r_VALUE <= i_BUS[DATA_WIDTH - 1:0];
+            r_VALUE <= {16'b0, i_BUS[DATA_WIDTH - 1:0]};
     end
     
     // Updates r_DIGIT_SELECT every (divided) clock cycle.
-    always @(posedge w_CLOCK)
+    always @(posedge CLOCK)
     begin
         if (r_DIGIT_SELECT == 6'b100000)
             r_DIGIT_SELECT <= 6'b1;
@@ -71,33 +71,33 @@ module Output
     always @(r_DIGIT_SELECT, r_VALUE, r_DIGIT_VALUE) 
     begin
         case (r_DIGIT_SELECT)
-            6'b000001 : r_DIGIT_VALUE <= r_VALUE[3:0];
-            6'b000010 : r_DIGIT_VALUE <= r_VALUE[7:4];
-            6'b000100 : r_DIGIT_VALUE <= r_VALUE[11:8];
-            6'b001000 : r_DIGIT_VALUE <= r_VALUE[15:12];
-            6'b010000 : r_DIGIT_VALUE <= r_VALUE[19:16];
-            6'b100000 : r_DIGIT_VALUE <= r_VALUE[23:20];
-            default   : r_DIGIT_VALUE <= r_VALUE[3:0];
+            6'b000001 : r_DIGIT_VALUE = r_VALUE[3:0];
+            6'b000010 : r_DIGIT_VALUE = r_VALUE[7:4];
+            6'b000100 : r_DIGIT_VALUE = r_VALUE[11:8];
+            6'b001000 : r_DIGIT_VALUE = r_VALUE[15:12];
+            6'b010000 : r_DIGIT_VALUE = r_VALUE[19:16];
+            6'b100000 : r_DIGIT_VALUE = r_VALUE[23:20];
+            default   : r_DIGIT_VALUE = r_VALUE[3:0];
         endcase
     
         case (r_DIGIT_VALUE)
-            4'b0000 : r_SEGMENT_VALUES <= 7'h7E;
-            4'b0001 : r_SEGMENT_VALUES <= 7'h30;
-            4'b0010 : r_SEGMENT_VALUES <= 7'h6D;
-            4'b0011 : r_SEGMENT_VALUES <= 7'h79;
-            4'b0100 : r_SEGMENT_VALUES <= 7'h33;          
-            4'b0101 : r_SEGMENT_VALUES <= 7'h5B;
-            4'b0110 : r_SEGMENT_VALUES <= 7'h5F;
-            4'b0111 : r_SEGMENT_VALUES <= 7'h70;
-            4'b1000 : r_SEGMENT_VALUES <= 7'h7F;
-            4'b1001 : r_SEGMENT_VALUES <= 7'h7B;
-            4'b1010 : r_SEGMENT_VALUES <= 7'h77;
-            4'b1011 : r_SEGMENT_VALUES <= 7'h1F;
-            4'b1100 : r_SEGMENT_VALUES <= 7'h4E;
-            4'b1101 : r_SEGMENT_VALUES <= 7'h3D;
-            4'b1110 : r_SEGMENT_VALUES <= 7'h4F;
-            4'b1111 : r_SEGMENT_VALUES <= 7'h47;
-            default : r_SEGMENT_VALUES <= 7'h7E;
+            4'b0000 : r_SEGMENT_VALUES = 7'h7E;
+            4'b0001 : r_SEGMENT_VALUES = 7'h30;
+            4'b0010 : r_SEGMENT_VALUES = 7'h6D;
+            4'b0011 : r_SEGMENT_VALUES = 7'h79;
+            4'b0100 : r_SEGMENT_VALUES = 7'h33;
+            4'b0101 : r_SEGMENT_VALUES = 7'h5B;
+            4'b0110 : r_SEGMENT_VALUES = 7'h5F;
+            4'b0111 : r_SEGMENT_VALUES = 7'h70;
+            4'b1000 : r_SEGMENT_VALUES = 7'h7F;
+            4'b1001 : r_SEGMENT_VALUES = 7'h7B;
+            4'b1010 : r_SEGMENT_VALUES = 7'h77;
+            4'b1011 : r_SEGMENT_VALUES = 7'h1F;
+            4'b1100 : r_SEGMENT_VALUES = 7'h4E;
+            4'b1101 : r_SEGMENT_VALUES = 7'h3D;
+            4'b1110 : r_SEGMENT_VALUES = 7'h4F;
+            4'b1111 : r_SEGMENT_VALUES = 7'h47;
+            default : r_SEGMENT_VALUES = 7'h7E;
         endcase
     end
     

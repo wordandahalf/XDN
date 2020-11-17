@@ -1,4 +1,4 @@
-`timescale 1ns / 1ps
+`timescale 1ps / 1ps
 module ControlUnit
 (
     input                               i_CLOCK,        // Clock input
@@ -16,7 +16,7 @@ module ControlUnit
     // Keeps track of instruction decoding
     reg [2:0]   r_T_CYCLE       = 0;
 
-    `include "src/ControlSignals.v"
+    `include "rtl/ControlSignals.v"
 
     // Updates t-cycle counter
     always @(posedge i_CLOCK)

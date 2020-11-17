@@ -1,4 +1,4 @@
-`timescale 1ns / 1ps
+`timescale 1ps / 1ps
 module Clock
 (
     input       i_SYS_CLOCK,    // The system clock input from the on-board crystal
@@ -28,7 +28,7 @@ module Clock
     // Toggle r_MANUAL_STEP when i_STEP_TOGGLE goes high
     always @(posedge i_STEP_TOGGLE)
     begin
-        r_MANUAL_STEP = !r_MANUAL_STEP;
+        r_MANUAL_STEP <= !r_MANUAL_STEP;
     end
 
     // Logic for the clock module

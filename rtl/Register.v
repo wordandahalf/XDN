@@ -1,4 +1,4 @@
-`timescale 1ns / 1ps
+`timescale 1ps / 1ps
 module Register
 (
     input                           i_CLOCK,        // Clock input
@@ -23,5 +23,5 @@ module Register
     end
 
     assign o_DATA   = r_VALUE;
-    assign BUS      = (i_WRITE_BUS) ? r_VALUE : 'bz;
+    assign BUS      = (i_WRITE_BUS) ? r_VALUE : {DATA_WIDTH {1'bz}};
 endmodule

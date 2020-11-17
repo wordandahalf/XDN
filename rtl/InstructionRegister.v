@@ -1,4 +1,4 @@
-`timescale 1ns / 1ps
+`timescale 1ps / 1ps
 module InstructionRegister
 (
     input                           i_CLOCK,        // Clock input
@@ -7,10 +7,11 @@ module InstructionRegister
     input                           i_READ_BUS,     // Active-low signal to read the bus
     input                           i_WRITE_BUS,    // Active-low signal to write to the bus
 
-    output  [(DATA_WIDTH / 2) - 1:0] o_DATA         // Higher nibble output for CU instruction decoding
+    output  [ADDRESS_WIDTH - 1:0] o_DATA            // Higher nibble output for CU instruction decoding
 );
 
-    parameter DATA_WIDTH = 8'h8;
+    parameter DATA_WIDTH = 8;
+    parameter ADDRESS_WIDTH = 4;
 
     reg     [DATA_WIDTH - 1:0]      r_VALUE = 0;
 
@@ -25,6 +26,6 @@ module InstructionRegister
         end
     end
 
-    assign o_DATA   = r_VALUE[(DATA_WIDTH - 1):(DATA_WIDTH / 2)];
-    assign BUS      = (i_WRITE_BUS) ? r_VALUE[(DATA_WIDTH / 2):0] : 'bz;
+    assign o_DATA                       = r_VALUE[(DATA_WIDTH - 1):ADDRESS_WIDTH];
+    assign BUS[ADDRESS_WIDTH - 1:0]     = (i_WRITE_BUS) ? r_VALUE[ADDRESS_WIDTH - 1:0] : {ADDRESS_WIDTH {1'bz}};
 endmodule

@@ -1,9 +1,2 @@
-*
-!.gitignore
-!src/
-!src/test_benches/
-!data/
-
-!*.v
-!*.hex
-!XDN.wcfg
+build/
+trace.vcd

@@ -1,4 +1,4 @@
-`timescale 1ns / 1ps
+`timescale 1ps / 1ps
 module ALU
 (
     // ALU
@@ -30,9 +30,9 @@ module ALU
     always @(i_A_DATA, i_B_DATA, i_SUB)
     begin
         if(i_SUB)
-            r_RESULT <= i_A_DATA - i_B_DATA;
+            r_RESULT = i_A_DATA - i_B_DATA;
         else
-            r_RESULT <= i_A_DATA + i_B_DATA;
+            r_RESULT = i_A_DATA + i_B_DATA;
     end
 
     // Clear or update the flags
@@ -53,7 +53,7 @@ module ALU
         end
     end
 
-    assign o_BUS = (i_WRITE_BUS) ? r_RESULT[DATA_WIDTH - 1:0] : 'bz; 
+    assign o_BUS = (i_WRITE_BUS) ? r_RESULT[DATA_WIDTH - 1:0] : {DATA_WIDTH {1'bz}};
     assign o_ZERO_FLAG = r_FLAGS[1:1];
     assign o_CARRY_FLAG = r_FLAGS[0:0];
 endmodule

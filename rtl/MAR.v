@@ -1,3 +1,4 @@
+`timescale 1ps / 1ps
 module MAR
 (
     input                           i_CLOCK,    // Clock input

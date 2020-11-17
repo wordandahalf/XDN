@@ -1,4 +1,4 @@
-`timescale 1ns / 1ps
+`timescale 1ps / 1ps
 module ProgramCounter
 (
     input                           i_CLOCK,        // Clock input
@@ -21,7 +21,7 @@ module ProgramCounter
             r_COUNTER <= 0;
         // Else, if i_JUMP is low, load from bus
         else if (i_JUMP)
-            r_COUNTER <= BUS;
+            r_COUNTER <= BUS[ADDRESS_WIDTH - 1:0];
         // Else if i_COUNT_ENABLE, increment the counter
         else if (i_COUNT_ENABLE) begin
         //	if &r_COUNTER is full, it will overflow
@@ -32,5 +32,5 @@ module ProgramCounter
         end
     end
 
-    assign BUS[ADDRESS_WIDTH - 1:0] = (i_OUTPUT) ? r_COUNTER : 'bz;
+    assign BUS[ADDRESS_WIDTH - 1:0] = (i_OUTPUT) ? r_COUNTER : {ADDRESS_WIDTH {1'bz}};
 endmodule

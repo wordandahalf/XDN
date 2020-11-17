@@ -1,4 +1,4 @@
-`timescale 1ns / 1ps
+`timescale 1ps / 1ps
 module RAM
 (
     input                           i_CLOCK,
@@ -13,9 +13,8 @@ module RAM
     parameter   ADDRESS_WIDTH   = $clog2(RAM_LENGTH);
     parameter   RAM_LENGTH      = 16;
 
-    localparam  RAM_FILE        = "data/ram.hex";
+    localparam  RAM_FILE         = "data/ram.hex";
 
-    reg [DATA_WIDTH - 1:0]  r_VALUE = 0;
     reg [DATA_WIDTH - 1:0]  r_RAM   [0:RAM_LENGTH - 1];
 
     initial
@@ -26,8 +25,8 @@ module RAM
     always @(posedge i_CLOCK)
     begin
         if(i_READ_BUS)
-            r_RAM[i_MAR_DATA] = BUS;
+            r_RAM[i_MAR_DATA] <= BUS;
     end
 
-    assign BUS = (i_WRITE_BUS) ? r_RAM[i_MAR_DATA] : 'bz;
+    assign BUS = (i_WRITE_BUS) ? r_RAM[i_MAR_DATA] : {DATA_WIDTH {1'bz}};
 endmodule
