@@ -209,6 +209,7 @@ module XDN
         RAM_WRITE_BUS
     );
 
+    wire                            CU_ADVANCE;
     wire    [CONTROL_WIDTH - 1:0]   CONTROL_SIGNALS;
 
     ControlUnit #(DATA_WIDTH) cu
@@ -217,6 +218,7 @@ module XDN
         IR_DATA,
         ZERO_FLAG,
         CARRY_FLAG,
+        CU_ADVANCE,
 
         CLEAR,
         CLEAR_n,
@@ -231,6 +233,7 @@ module XDN
     assign CLOCK_STEP_TOGGLE    = i_BTN_0;
     assign CLOCK_STEP           = i_BTN_1;
     
+    assign CU_ADVANCE           = CONTROL_SIGNALS[CU_ADVANCE_INDEX];
     assign CLOCK_HALT           = CONTROL_SIGNALS[HALT_INDEX];
     assign MAR_READ_BUS         = CONTROL_SIGNALS[MAR_IN_INDEX];
     assign MAR_WRITE_BUS        = 0;
