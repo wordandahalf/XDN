@@ -9,10 +9,9 @@ module ProgramCounter
     input                           i_OUTPUT        // Indicates to write the counter value to the bus
 );
 
-    parameter   DATA_WIDTH      = 8; 
-    parameter   ADDRESS_WIDTH   = 4;
+    parameter   DATA_WIDTH      = 8;
 
-    reg	[ADDRESS_WIDTH - 1:0]  r_COUNTER   = 0;
+    reg	[DATA_WIDTH - 1:0]  r_COUNTER   = 0;
 
     always @(posedge i_CLOCK, negedge i_CLEAR_n)
     begin
@@ -21,7 +20,7 @@ module ProgramCounter
             r_COUNTER <= 0;
         // Else, if i_JUMP is low, load from bus
         else if (i_JUMP)
-            r_COUNTER <= BUS[ADDRESS_WIDTH - 1:0];
+            r_COUNTER <= BUS;
         // Else if i_COUNT_ENABLE, increment the counter
         else if (i_COUNT_ENABLE) begin
         //	if &r_COUNTER is full, it will overflow
@@ -32,5 +31,5 @@ module ProgramCounter
         end
     end
 
-    assign BUS[ADDRESS_WIDTH - 1:0] = (i_OUTPUT) ? r_COUNTER : {ADDRESS_WIDTH {1'bz}};
+    assign BUS = (i_OUTPUT) ? r_COUNTER : {DATA_WIDTH {1'bz}};
 endmodule

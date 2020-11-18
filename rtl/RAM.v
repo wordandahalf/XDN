@@ -3,19 +3,18 @@ module RAM
 (
     input                           i_CLOCK,
     inout   [DATA_WIDTH - 1:0]      BUS,
-    input   [ADDRESS_WIDTH - 1:0]   i_MAR_DATA,
+    input   [DATA_WIDTH - 1:0]      i_MAR_DATA,
 
     input                           i_READ_BUS,
     input                           i_WRITE_BUS
 );
 
     parameter   DATA_WIDTH      = 8;
-    parameter   ADDRESS_WIDTH   = $clog2(RAM_LENGTH);
-    parameter   RAM_LENGTH      = 16;
+    parameter   RAM_LENGTH      = 256;
 
     localparam  RAM_FILE         = "data/ram.hex";
 
-    reg [DATA_WIDTH - 1:0]  r_RAM   [0:RAM_LENGTH - 1];
+    reg [DATA_WIDTH - 1:0]  r_RAM   [0:255];
 
     initial
     begin

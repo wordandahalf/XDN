@@ -39,7 +39,6 @@ module XDN
     parameter   OUTPUT_CLOCK_DIVISOR    = 2;
 
     parameter   DATA_WIDTH              = 8;
-    parameter   ADDRESS_WIDTH           = 4;
     parameter   RAM_LENGTH              = 16;
     
     // CPU-wide connections.
@@ -98,7 +97,7 @@ module XDN
     wire    PC_JUMP;
     wire    PC_WRITE_BUS;
 
-    ProgramCounter #(DATA_WIDTH, ADDRESS_WIDTH) program_counter
+    ProgramCounter #(DATA_WIDTH) program_counter
     (
         CLOCK,
         BUS,
@@ -146,9 +145,9 @@ module XDN
     wire    IR_READ_BUS;
     wire    IR_WRITE_BUS;
 
-    wire    [(DATA_WIDTH / 2) - 1:0] IR_DATA;
+    wire    [DATA_WIDTH - 1:0] IR_DATA;
 
-    InstructionRegister #(DATA_WIDTH, ADDRESS_WIDTH) instruction_register
+    Register #(DATA_WIDTH) instruction_register
     (
         CLOCK,
         BUS,
@@ -185,12 +184,12 @@ module XDN
 
     wire    MAR_READ_BUS;
     wire    MAR_WRITE_BUS;
-    wire    [ADDRESS_WIDTH - 1:0] MAR_DATA;
+    wire    [DATA_WIDTH - 1:0] MAR_DATA;
 
-    Register #(ADDRESS_WIDTH) mar
+    Register #(DATA_WIDTH) mar
     (
         CLOCK,
-        BUS[ADDRESS_WIDTH - 1:0],
+        BUS,
         CLEAR,
         MAR_READ_BUS,
         MAR_WRITE_BUS,
@@ -201,7 +200,7 @@ module XDN
     wire    RAM_READ_BUS;
     wire    RAM_WRITE_BUS;
 
-    RAM #(DATA_WIDTH, ADDRESS_WIDTH, RAM_LENGTH) ram
+    RAM #(DATA_WIDTH, RAM_LENGTH) ram
     (
         CLOCK,
         BUS,
@@ -224,32 +223,30 @@ module XDN
         CONTROL_SIGNALS
     );
 
-//    begin
-        assign o_LED_0              = CLOCK;
-        assign o_LED_1              = CLOCK_HALT;
-        assign o_LED_2              = PC_JUMP;
-        assign o_LED_3              = RAM_WRITE_BUS;
-        
-        assign CLOCK_STEP_TOGGLE    = i_BTN_0;
-        assign CLOCK_STEP           = i_BTN_1;
-        
-        assign CLOCK_HALT           = CONTROL_SIGNALS[HALT_INDEX];
-        assign MAR_READ_BUS         = CONTROL_SIGNALS[MAR_IN_INDEX];
-        assign MAR_WRITE_BUS        = 0;
-        assign RAM_READ_BUS         = CONTROL_SIGNALS[RAM_IN_INDEX];
-        assign RAM_WRITE_BUS        = CONTROL_SIGNALS[RAM_OUT_INDEX];
-        assign IR_READ_BUS          = CONTROL_SIGNALS[IR_IN_INDEX];
-        assign IR_WRITE_BUS         = CONTROL_SIGNALS[IR_OUT_INDEX];
-        assign A_READ_BUS           = CONTROL_SIGNALS[A_IN_INDEX];
-        assign A_WRITE_BUS          = CONTROL_SIGNALS[A_OUT_INDEX];
-        assign ALU_WRITE_BUS        = CONTROL_SIGNALS[ALU_OUT_INDEX];
-        assign ALU_SUBTRACT         = CONTROL_SIGNALS[ALU_SUB_INDEX];
-        assign FLAGS_UPDATE         = CONTROL_SIGNALS[FLAGS_UPDATE_INDEX];
-        assign B_READ_BUS           = CONTROL_SIGNALS[B_IN_INDEX];
-        assign B_WRITE_BUS          = 0;
-        assign OUT_READ_BUS         = CONTROL_SIGNALS[OUT_IN_INDEX];
-        assign PC_COUNT_ENABLE      = CONTROL_SIGNALS[PC_INC_INDEX];
-        assign PC_WRITE_BUS         = CONTROL_SIGNALS[PC_OUT_INDEX];
-        assign PC_JUMP              = CONTROL_SIGNALS[JUMP_INDEX];
-//    end
+    assign o_LED_0              = CLOCK;
+    assign o_LED_1              = CLOCK_HALT;
+    assign o_LED_2              = PC_JUMP;
+    assign o_LED_3              = RAM_WRITE_BUS;
+    
+    assign CLOCK_STEP_TOGGLE    = i_BTN_0;
+    assign CLOCK_STEP           = i_BTN_1;
+    
+    assign CLOCK_HALT           = CONTROL_SIGNALS[HALT_INDEX];
+    assign MAR_READ_BUS         = CONTROL_SIGNALS[MAR_IN_INDEX];
+    assign MAR_WRITE_BUS        = 0;
+    assign RAM_READ_BUS         = CONTROL_SIGNALS[RAM_IN_INDEX];
+    assign RAM_WRITE_BUS        = CONTROL_SIGNALS[RAM_OUT_INDEX];
+    assign IR_READ_BUS          = CONTROL_SIGNALS[IR_IN_INDEX];
+    assign IR_WRITE_BUS         = CONTROL_SIGNALS[IR_OUT_INDEX];
+    assign A_READ_BUS           = CONTROL_SIGNALS[A_IN_INDEX];
+    assign A_WRITE_BUS          = CONTROL_SIGNALS[A_OUT_INDEX];
+    assign ALU_WRITE_BUS        = CONTROL_SIGNALS[ALU_OUT_INDEX];
+    assign ALU_SUBTRACT         = CONTROL_SIGNALS[ALU_SUB_INDEX];
+    assign FLAGS_UPDATE         = CONTROL_SIGNALS[FLAGS_UPDATE_INDEX];
+    assign B_READ_BUS           = CONTROL_SIGNALS[B_IN_INDEX];
+    assign B_WRITE_BUS          = 0;
+    assign OUT_READ_BUS         = CONTROL_SIGNALS[OUT_IN_INDEX];
+    assign PC_COUNT_ENABLE      = CONTROL_SIGNALS[PC_INC_INDEX];
+    assign PC_WRITE_BUS         = CONTROL_SIGNALS[PC_OUT_INDEX];
+    assign PC_JUMP              = CONTROL_SIGNALS[JUMP_INDEX];
 endmodule
