@@ -1,0 +1,104 @@
+[*]
+[*] GTKWave Analyzer v3.3.103 (w)1999-2019 BSI
+[*] Wed Nov 18 16:18:03 2020
+[*]
+[dumpfile] "/mnt/c/Users/Ryan/Documents/Workspace/XDN/trace.vcd"
+[dumpfile_mtime] "Wed Nov 18 16:18:00 2020"
+[dumpfile_size] 2274050
+[savefile] "/mnt/c/Users/Ryan/Documents/Workspace/XDN/trace.gtkw"
+[timestart] 7160
+[size] 1920 1017
+[pos] -1 -1
+*-11.000000 9000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] TOP.
+[treeopen] TOP.XDN.
+[treeopen] TOP.XDN.mar.
+[sst_width] 249
+[signals_width] 237
+[sst_expanded] 1
+[sst_vpaned_height] 300
+@22
+[color] 1
+TOP.XDN.BUS[7:0]
+@200
+-CU
+@28
+[color] 3
+TOP.XDN.cu.r_T_CYCLE[2:0]
+@22
+[color] 4
+TOP.XDN.cu.i_IR_DATA[7:0]
+@28
+[color] 5
+TOP.XDN.cu.o_CONTROL_SIGNALS[15:0]
+@200
+-MAR
+@22
+[color] 7
+TOP.XDN.mar.r_VALUE[7:0]
+@28
+[color] 1
+TOP.XDN.mar.i_READ_BUS
+[color] 2
+TOP.XDN.mar.i_WRITE_BUS
+@200
+-RAM
+@28
+[color] 4
+TOP.XDN.ram.i_READ_BUS
+[color] 5
+TOP.XDN.ram.i_WRITE_BUS
+@200
+-ALU
+@22
+[color] 7
+TOP.XDN.alu.r_RESULT[8:0]
+@28
+[color] 1
+TOP.XDN.alu.o_CARRY_FLAG
+[color] 2
+TOP.XDN.alu.o_ZERO_FLAG
+[color] 3
+TOP.XDN.alu.i_UPDATE_FLAGS
+[color] 4
+TOP.XDN.alu.i_WRITE_BUS
+@200
+-A
+@22
+[color] 6
+TOP.XDN.a_register.r_VALUE[7:0]
+@28
+[color] 7
+TOP.XDN.a_register.i_READ_BUS
+[color] 1
+TOP.XDN.a_register.i_WRITE_BUS
+@200
+-B
+@22
+[color] 3
+TOP.XDN.b_register.r_VALUE[7:0]
+@28
+[color] 4
+TOP.XDN.b_register.i_READ_BUS
+[color] 5
+TOP.XDN.b_register.i_WRITE_BUS
+@200
+-PC
+@22
+[color] 7
+TOP.XDN.program_counter.r_COUNTER[7:0]
+@28
+[color] 1
+TOP.XDN.program_counter.i_COUNT_ENABLE
+[color] 2
+TOP.XDN.program_counter.i_OUTPUT
+@200
+-Output
+@22
+[color] 4
+TOP.XDN.output_module.r_VALUE[23:0]
+@28
+[color] 5
+TOP.XDN.output_module.i_READ_BUS
+[pattern_trace] 1
+[pattern_trace] 0
